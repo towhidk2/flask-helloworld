@@ -1,16 +1,10 @@
 from flask import Flask
-
-PORT = 3003
-MESSAGE = "Hello, world!"
-
 app = Flask(__name__)
 
+@app.route('/')
 
-@app.route("/")
-def hello():
-    result = MESSAGE.encode("utf-8")
-    return result
+@app.route('/index')
+def index():
+    return 'Hello world!'
 
 
-if __name__ == "__main__":
-    app.run(debug=True, host="0.0.0.0", port=PORT)
