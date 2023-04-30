@@ -12,7 +12,7 @@ pipeline {
             steps {
                 script {
                     // Run the sed command to replace the tag with the new tag in the deployment.yaml file
-                    sh "sed -i 's/\\(${IMAGE_NAME}:[^:]*\\):.*/${IMAGE_TAG}/' ${DEPLOYMENT_FILE}"
+                    sh "sed -i 's/\(${IMAGE_NAME}:[^:]*\):.*/${IMAGE_TAG}/' ${DEPLOYMENT_FILE}"
 
                     // Print the updated deployment.yaml file for verification
                     sh "cat ${DEPLOYMENT_FILE}"
