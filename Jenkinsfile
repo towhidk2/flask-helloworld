@@ -1,18 +1,14 @@
 pipeline {
     agent any
     environment {
-        BUILD_NUMBER = sh(script: 'echo $BUILD_NUMBER', returnStdout: true).trim()
-        IMAGE_NAME = 'harbor.getsbo.com:14443/library/mern-api'
-        NEW_TAG = "v${BUILD_NUMBER}"
-        IMAGE_TAG = "${IMAGE_NAME}:${NEW_TAG}"
-        DEPLOYMENT_FILE = 'deployment.yaml'
+        // BUILD_NUMBER = sh(script: 'echo $BUILD_NUMBER', returnStdout: true).trim()
     }
     stages {
         stage('Replace image tag') {
             steps {
                 script {
                     // Run the sed command to replace the tag with the new tag in the deployment.yaml file
-                    sh "sed -i 's/\(${IMAGE_NAME}:[^:]*\):.*/${IMAGE_TAG}/' ${DEPLOYMENT_FILE}"
+                    sh "sed -i 's/\(harbor\.getsbo\.com:14443\/library\/mern-api\):[^:]*\(.*\)/\1:v${BUILD_NUMBER}\2/' deployment.yaml"
 
                     // Print the updated deployment.yaml file for verification
                     sh "cat ${DEPLOYMENT_FILE}"
