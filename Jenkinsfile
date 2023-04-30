@@ -11,7 +11,7 @@ pipeline {
                     sh "sed -i \"s/\\(harbor\\.getsbo\\.com:14443\\/library\\/mern-api\\):[^:]*\\(.*\\)/\\1:v${BUILD_NUMBER}\\2/\" deployment.yaml"
 
                     // Print the updated deployment.yaml file for verification
-                    sh "cat ${DEPLOYMENT_FILE}"
+                    sh "cat deployment.yaml"
                 }
             }
         }
