@@ -8,7 +8,10 @@ pipeline {
         stage('Replace image tag') {
             steps {
                 script {
-
+                    if (fileExists('helm-repo')) {
+                        sh 'rm -rf helm-repo'
+                    }
+                    
                     sshagent(credentials: ['jenkins_private_key']) {
                         sh 'git clone git@github.com:towhidk2/helm-repo.git'
                         dir('helm-repo') {
