@@ -8,18 +8,41 @@ pipeline {
         stage('Replace image tag') {
             steps {
                 script {
-                    // Run the sed command to replace the tag with the new tag in the deployment.yaml file
-                    // sh "sed -i \"s/\\(harbor\\.getsbo\\.com:14443\\/library\\/mern-api\\):[^:]*\\(.*\\)/\\1:v${BUILD_NUMBER}\\2/\" deployment.yaml"
-                    sh "sed -i 's|\\(harbor\\.getsbo\\.com:14443/library/mern-api\\):[^:]*\\(.*\\)|\\1:v${BUILD_NUMBER}\\2|' deployment.yaml"
 
-                    // Print the updated deployment.yaml file for verification
-                    sh "cat deployment.yaml"
+                    sshagent(credentials: ['jenkins_private_key']) {
+                        sh 'git clone git@github.com:towhidk2/helm-repo.git'
+                        dir('helm-repo') {
+                            sh 'git config --global user.email "jenkins@example.com"'
+                            sh 'git config --global user.name "jenkins"'
+                            sh "sed -i 's|\\(harbor\\.getsbo\\.com:14443/library/mern-api\\):[^:]*\\(.*\\)|\\1:v${BUILD_NUMBER}\\2|' deployment.yaml"
+                            sh "cat deployment.yaml"
+                            sh 'git add deployment.yaml'
+                            sh 'git commit -m "CI Image Tag Updates"'
+                            sh 'git push origin HEAD:main'
+                        }
+                
+                    }
                 }
             }
         }
         // Add additional stages as needed
 
-
+        // stage('Deploy') {
+        //     steps {
+        //         // Set up SSH authentication
+        //         sshagent(credentials: ['jenkins_private_key']) {
+        //             // Clone the repository using SSH
+        //             sh 'git clone git@github.com:towhidk2/helm-repo.git'
+        //             // Change to the cloned repository directory
+        //             dir('helm-repo') {
+        //                 sh 'git add .'
+        //                 sh 'git commit -m "Update repository"'
+        //                 // Push changes to GitHub
+        //                 sh 'git push'
+        //             }
+        //         }
+        //     }
+        // }
 
 
 
@@ -56,25 +79,8 @@ pipeline {
 //         }
 
 
-//         stage('Deploy') {
-//             steps {
-//                 // Set up SSH authentication
-//                 sshagent(credentials: ['jenkins_private_key']) {
-//                     // Clone the repository using SSH
-//                     sh 'git clone git@github.com:towhidk2/helm-repo.git'
-//                     // Change to the cloned repository directory
-//                     dir('helm-repo') {
-//                         sh "sed -i 's/tag_name/${BUILD_NUMBER}/g' crud-mern-api-v1.yml"
 
-//                         sh 'echo "Updating repository..." >> README.md'
-//                         // Add and commit changes
-//                         sh 'git add .'
-//                         sh 'git commit -m "Update repository"'
-//                         // Push changes to GitHub
-//                         sh 'git push'
-//                     }
-//                 }
-//             }
-//         }
+    
+    
 //     }
 // }
