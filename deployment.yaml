@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mern-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mern-api
+      version: v1
+  template:
+    metadata:
+      labels:
+        app: mern-api
+        version: v1
+    spec:
+      imagePullSecrets:
+      - name: harbor-registry-key
+      containers:
+      - name: mern-api
+        image: harbor.getsbo.com:14443/library/mern-api:v1.2
+        imagePullPolicy: Always
+        ports:
+        - name: api-port
+          containerPort: 5000
+ 
+
+
+
+
