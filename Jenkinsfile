@@ -10,7 +10,7 @@ pipeline {
                 script {
                     // Run the sed command to replace the tag with the new tag in the deployment.yaml file
                     // sh "sed -i \"s/\\(harbor\\.getsbo\\.com:14443\\/library\\/mern-api\\):[^:]*\\(.*\\)/\\1:v${BUILD_NUMBER}\\2/\" deployment.yaml"
-                    sh "sed -i 's#\\(harbor\\.getsbo\\.com:14443/library/mern-api\\):[^:]*\\(.*\\)#\\1:v${BUILD_NUMBER}\\2#' deployment.yaml"
+                    sh "sed -i 's|\\(harbor\\.getsbo\\.com:14443/library/mern-api\\):[^:]*\\(.*\\)|\\1:v${BUILD_NUMBER}\\2|' deployment.yaml"
 
                     // Print the updated deployment.yaml file for verification
                     sh "cat deployment.yaml"
