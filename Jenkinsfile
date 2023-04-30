@@ -1,8 +1,8 @@
 pipeline {
     agent any
-    environment {
-        // BUILD_NUMBER = sh(script: 'echo $BUILD_NUMBER', returnStdout: true).trim()
-    }
+    // environment {
+    //     // BUILD_NUMBER = sh(script: 'echo $BUILD_NUMBER', returnStdout: true).trim()
+    // }
     stages {
         stage('Replace image tag') {
             steps {
