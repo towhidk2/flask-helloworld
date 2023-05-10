@@ -8,10 +8,14 @@ pipeline {
             }
         }
         stage('Test') {
-            // Test stage definition
+            steps{
+                echo 'Testing stage'
+            }
         }
         stage('Deploy') {
-            // Deploy stage definition
+            steps{
+                echo 'Deploying stage'
+            }
         }
     }
     post {
