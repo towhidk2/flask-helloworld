@@ -1,40 +1,22 @@
 pipeline {
     agent any
-    // environment {
-    //     // BUILD_NUMBER = sh(script: 'echo $BUILD_NUMBER', returnStdout: true).trim()
-    // }
     stages {
-
-        stage('Replace image tag') {
+        stage('Build') {
             steps {
-                script {
-                    if (fileExists('helm-repo')) {
-                        sh 'rm -rf helm-repo'
-                    }
-                    
-                    sshagent(credentials: ['jenkins_private_key']) {
-                        sh 'git clone git@github.com:towhidk2/helm-repo.git'
-                        dir('helm-repo') {
-                            sh 'git config --global user.email "jenkins@example.com"'
-                            sh 'git config --global user.name "jenkins"'
-                            sh "sed -i 's|\\(harbor\\.getsbo\\.com:14443/library/mern-api\\):[^:]*\\(.*\\)|\\1:v${BUILD_NUMBER}\\2|' deployment.yaml"
-                            sh "cat deployment.yaml"
-                            sh 'git add deployment.yaml'
-                            sh 'git commit -m "CI Image Tag Updates"'
-                            sh 'git push origin HEAD:main'
-                        }
-                
-                    }
-                }
+                // Build step definition
+                sh 'exit 1' // Example failure condition
             }
         }
-
-
-
+        stage('Test') {
+            // Test stage definition
+        }
+        stage('Deploy') {
+            // Deploy stage definition
+        }
     }
-
-
-
-
+    post {
+        failure {
+            echo 'One or more stages have failed, but the pipeline will continue'
+        }
+    }
 }
-
