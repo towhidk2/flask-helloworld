@@ -1,20 +1,18 @@
 pipeline {
-    agent any
+    agent {
+        docker {
+            image 'node:16.13.1-alpine'
+        }
+    }
     stages {
         stage('Build') {
             steps {
-                // Build step definition
-                sh 'exit 1' // Example failure condition
+               echo 'Building stage'
+               sh 'node --version'
             }
         }
         stage('Test') {
             steps{
-                stage('Build') {
-                    steps {
-                        // Build step definition
-                        echo 'Building stage'
-                    }
-                }
                 echo 'Testing stage'
             }
         }
@@ -28,10 +26,6 @@ pipeline {
         always {
             // Always execute these steps
             echo 'Pipeline completed'
-        }
-        unstable {
-            // Execute these steps if the build is unstable
-            echo 'Build unstable, but continuing...'
         }
     }
 }
