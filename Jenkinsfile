@@ -1,31 +1,16 @@
 pipeline {
     agent {
         docker {
-            image 'node:16.13.1-alpine'
+            image 'node:14-alpine'
+            args '-p 8080:8080'
         }
     }
     stages {
         stage('Build') {
             steps {
-               echo 'Building stage'
-               sh 'node --version'
+                // Perform build steps
+                sh 'node -v'
             }
-        }
-        stage('Test') {
-            steps{
-                echo 'Testing stage'
-            }
-        }
-        stage('Deploy') {
-            steps{
-                echo 'Deploying stage'
-            }
-        }
-    }
-    post {
-        always {
-            // Always execute these steps
-            echo 'Pipeline completed'
         }
     }
 }
