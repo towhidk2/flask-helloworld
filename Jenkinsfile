@@ -9,6 +9,12 @@ pipeline {
         }
         stage('Test') {
             steps{
+                stage('Build') {
+                    steps {
+                        // Build step definition
+                        echo 'Building stage'
+                    }
+                }
                 echo 'Testing stage'
             }
         }
