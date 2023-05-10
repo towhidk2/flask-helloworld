@@ -19,8 +19,13 @@ pipeline {
         }
     }
     post {
-        failure {
-            echo 'One or more stages have failed, but the pipeline will continue'
+        always {
+            // Always execute these steps
+            echo 'Pipeline completed'
+        }
+        unstable {
+            // Execute these steps if the build is unstable
+            echo 'Build unstable, but continuing...'
         }
     }
 }
