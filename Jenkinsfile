@@ -18,7 +18,7 @@ pipeline {
         
         stage('CD Deployment') {
             when {
-                branch 'master'
+                expression { BRANCH_NAME ==~ /(master)/ }
             }
             steps {
                 echo "CD Deployment..."
