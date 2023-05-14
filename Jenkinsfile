@@ -1,16 +1,38 @@
 pipeline {
-    agent {
-        docker {
-            image 'node:14-alpine'
-            args '-p 8080:8080'
+    agent any
+    
+    stages {
+
+        
+        stage('Build and Test') {
+            steps {
+                echo "Builing and Testing..."
+            }
+        }
+        
+        stage('CI Deployment') {
+            steps {
+                echo "CI Deployment..."
+            }
+        }
+        
+        stage('CD Deployment') {
+            when {
+                branch 'master'
+            }
+            steps {
+                echo "CD Deployment..."
+            }
         }
     }
-    stages {
-        stage('Build') {
-            steps {
-                // Perform build steps
-                sh 'node -v'
-            }
+    
+    post {
+        success {
+            echo 'Pipeline executed successfully!'
+        }
+        
+        failure {
+            echo 'Pipeline failed!'
         }
     }
 }
