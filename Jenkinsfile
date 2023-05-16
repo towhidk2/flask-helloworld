@@ -7,21 +7,21 @@ pipeline {
         stage('Build and Test') {
             steps {
                 script {
-                    def void deploy(String branchName){
-                        if(branchName == "master"){
-                            println("Deploying to Prod.")
-                        }
-                        else if(branchName == "test"){
-                            println("Deploying to Test.")
-                        }
-                    }
+
+                    
                     echo "Builing and Testing..."
                     sh 'printenv'
                     echo "Branch name: ${env.GIT_BRANCH}"
                     def branchName = "${env.GIT_BRANCH}"
                     def newBranchName = branchName.replaceAll('origin/', '')
                     println "New branch name: $newBranchName"
-                    deploy(newBranchName);
+                    // deploy(newBranchName);
+                    if(newBranchName == "master"){
+                            println("Deploying to Prod.")
+                    }
+                    else if(newBranchName == "test"){
+                            println("Deploying to Test.")
+                    }
                 }
             }
         }
@@ -49,11 +49,11 @@ pipeline {
 }
 
 
-def void deploy(String branchName){
-    if(branchName == "master"){
-       println("Deploying to Prod.")
-    }
-    else if(branchName == "test"){
-       println("Deploying to Test.")
-    }
-}
+// def void deploy(String branchName){
+//     if(branchName == "master"){
+//        println("Deploying to Prod.")
+//     }
+//     else if(branchName == "test"){
+//        println("Deploying to Test.")
+//     }
+// }
