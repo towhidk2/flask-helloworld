@@ -8,7 +8,10 @@ pipeline {
             steps {
                 echo "Builing and Testing..."
                 sh 'printenv'
-                // echo "Branch name: ${BRANCH_NAME}"
+                echo "Branch name: ${env.GIT_BRANCH}"
+                def branchName = "${env.GIT_BRANCH}"
+                def newBranchName = branchName.replaceAll('origin/', '')
+                println "New branch name: $newBranchName"
             }
         }
         
@@ -18,15 +21,18 @@ pipeline {
             }
         }
         
-        stage('CD Deployment') {
-            steps {
-                script {
-                    def branchName = "${env.BRANCH_NAME}"
-                    // Calling deploy method... 
-                    deploy(branchName);
-                }
-            }
-        }
+        // stage('CD Deployment') {
+        //     steps {
+        //         script {
+        //             def branchName = "${env.BRANCH_NAME}"
+        //             def branchName = 'origin/master'
+        //             def newBranchName = branchName.replaceAll('origin/', '')
+        //             println "New branch name: $newBranchName"
+        //             // Calling deploy method... 
+        //             deploy(branchName);
+        //         }
+        //     }
+        // }
     }
     
 }
