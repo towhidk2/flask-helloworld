@@ -7,7 +7,7 @@ pipeline {
         stage('Build and Test') {
             steps {
                 echo "Builing and Testing..."
-                echo "Branch name: ${env.BRANCH_NAME}"
+                echo "Branch name: ${BRANCH_NAME}"
             }
         }
         
