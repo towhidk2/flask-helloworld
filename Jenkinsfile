@@ -7,6 +7,14 @@ pipeline {
         stage('Build and Test') {
             steps {
                 script {
+                    def void deploy(String branchName){
+                        if(branchName == "master"){
+                            println("Deploying to Prod.")
+                        }
+                        else if(branchName == "test"){
+                            println("Deploying to Test.")
+                        }
+                    }
                     echo "Builing and Testing..."
                     sh 'printenv'
                     echo "Branch name: ${env.GIT_BRANCH}"
@@ -48,5 +56,4 @@ def void deploy(String branchName){
     else if(branchName == "test"){
        println("Deploying to Test.")
     }
-
 }
