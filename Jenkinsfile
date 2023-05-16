@@ -13,6 +13,7 @@ pipeline {
                     def branchName = "${env.GIT_BRANCH}"
                     def newBranchName = branchName.replaceAll('origin/', '')
                     println "New branch name: $newBranchName"
+                    deploy(newBranchName);
                 }
             }
         }
