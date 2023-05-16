@@ -17,22 +17,25 @@ pipeline {
         }
         
         stage('CD Deployment') {
-            when {
-                expression { BRANCH_NAME ==~ /(master)/ }
-            }
             steps {
-                echo "CD Deployment..."
+                script {
+                    def branchName = "${env.BRANCH_NAME}"
+                    // Calling deploy method... 
+                    deploy(branchName);
+                }
             }
         }
     }
     
-    post {
-        success {
-            echo 'Pipeline executed successfully!'
-        }
-        
-        failure {
-            echo 'Pipeline failed!'
-        }
+}
+
+
+def void deploy(String branchName){
+    if(branchName == "master"){
+       println("Deploying to Prod.")
     }
+    else if(branchName == "test"){
+       println("Deploying to Test.")
+    }
+
 }
