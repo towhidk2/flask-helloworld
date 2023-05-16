@@ -6,12 +6,14 @@ pipeline {
         
         stage('Build and Test') {
             steps {
-                echo "Builing and Testing..."
-                sh 'printenv'
-                echo "Branch name: ${env.GIT_BRANCH}"
-                def branchName = "${env.GIT_BRANCH}"
-                def newBranchName = branchName.replaceAll('origin/', '')
-                println "New branch name: $newBranchName"
+                script {
+                    echo "Builing and Testing..."
+                    sh 'printenv'
+                    echo "Branch name: ${env.GIT_BRANCH}"
+                    def branchName = "${env.GIT_BRANCH}"
+                    def newBranchName = branchName.replaceAll('origin/', '')
+                    println "New branch name: $newBranchName"
+                }
             }
         }
         
