@@ -5,3 +5,5 @@ steps:
   args: ['push', 'gcr.io/$_SERVICE_NAME:$COMMIT_SHA']
 images:
 - 'gcr.io/$_SERVICE_NAME:$COMMIT_SHA'
+options:
+  logging: CLOUD_LOGGING_ONLY
