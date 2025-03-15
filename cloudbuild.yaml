@@ -1,11 +1,9 @@
 substitutions:
-  _TAG: "1.0.0"
+  _TAG: "1.0.1"
 
 steps:
-# Build the container image
 - name: 'gcr.io/cloud-builders/docker'
   args: ['build', '-t', 'us-central1-docker.pkg.dev/$PROJECT_ID/docker-images-repo/flask-helloworld:${_TAG}', '.']
-# Push the container image to Artifact Registry
 - name: 'gcr.io/cloud-builders/docker'
   args: ['push', 'us-central1-docker.pkg.dev/$PROJECT_ID/docker-images-repo/flask-helloworld:${_TAG}']
 images:
@@ -13,7 +11,4 @@ images:
 
 options:
   logging: CLOUD_LOGGING_ONLY
-
-
-
 
