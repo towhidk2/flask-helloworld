@@ -7,6 +7,6 @@ images:
 - 'gcr.io/flask-helloworld:$COMMIT_SHA'
 options:
   logging: CLOUD_LOGGING_ONLY
-  serviceAccount: 'projects/$PROJECT_ID/serviceAccounts/$_CLOUD_BUILD_SA@$PROJECT_ID.iam.gserviceaccount.com'
+serviceAccount: 'projects/$PROJECT_ID/serviceAccounts/$_CLOUD_BUILD_SA@$PROJECT_ID.iam.gserviceaccount.com'
 substitutions:
   _CLOUD_BUILD_SA: 'cloud-build-sa'
